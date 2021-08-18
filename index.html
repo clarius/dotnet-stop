@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/dotnet-stop/assets/css/style.css?v=97bf72d155b6d3c8417d253f6a5a23e9c9aee031">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>dotnet-stop | Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="dotnet-stop" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:site_name" content="dotnet-stop" />
+<script type="application/ld+json">
+{"@type":"WebSite","url":"/dotnet-stop/","headline":"dotnet-stop","description":"Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.","name":"dotnet-stop","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/devlooped/dotnet-stop">View on GitHub</a>
+
+          <h1 id="project_title">dotnet-stop</h1>
+          <h2 id="project_tagline">Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="-dotnet-stop"><img src="https://raw.githubusercontent.com/devlooped/dotnet-stop/main/assets/img/icon.png" alt="Icon" /> dotnet-stop</h1>
+
+<p><a href="https://www.nuget.org/packages/dotnet-stop"><img src="https://img.shields.io/nuget/v/dotnet-stop.svg?color=royalblue" alt="Version" /></a> <a href="https://www.nuget.org/packages/dotnet-stop"><img src="https://img.shields.io/nuget/dt/dotnet-stop.svg?color=green" alt="Downloads" /></a> <a href="https://github.com/devlooped/dotnet-stop/blob/main/license.txt"><img src="https://img.shields.io/github/license/devlooped/dotnet-stop.svg?color=blue" alt="License" /></a> <a href="https://github.com/devlooped/dotnet-stop/actions"><img src="https://github.com/devlooped/dotnet-stop/workflows/build/badge.svg?branch=main" alt="Build" /></a></p>
+
+<p>A dotnet global tool that gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dotnet-stop
+  Sends the SIGINT (Ctrl+C) signal to a process to gracefully stop it.
+
+Usage:
+  dotnet stop [options] &lt;id&gt;
+
+Arguments:
+  &lt;id&gt;  ID of the process to stop.
+
+Options:
+  -t, --timeout &lt;timeout&gt;  Optional timeout in milliseconds to wait for the process to exit.
+  -q, --quiet              Do not display any output. [default: False]
+  --version                Show version information
+  -?, -h, --help           Show help and usage information
+</code></pre></div></div>
+
+<p>If no timeout is provided, the tool will wait indefinitely for the target process to exit.
+Otherwise, the process will exit with a non-zero exit code if the target process didn’t 
+exit within the specified timeout time.</p>
+
+<h2 id="sponsors">Sponsors</h2>
+
+<p><a href="https://github.com/sponsors/devlooped"><img src="https://raw.githubusercontent.com/devlooped/oss/main/assets/images/sponsors.svg" alt="sponsored" /></a> <a href="https://github.com/clarius"><img src="https://raw.githubusercontent.com/clarius/branding/main/logo/byclarius.svg" alt="clarius" /></a><a href="https://github.com/clarius"><img src="https://raw.githubusercontent.com/clarius/branding/main/logo/logo.svg" alt="clarius" /></a></p>
+
+<p><em><a href="https://github.com/sponsors/devlooped">get mentioned here too</a>!</em></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">dotnet-stop maintained by <a href="https://github.com/devlooped">devlooped</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
