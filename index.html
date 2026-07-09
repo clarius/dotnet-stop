@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/dotnet-stop/assets/css/style.css?v=77f3bd7c9a1bfe04a62c47e0dd529af847369263">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>dotnet-stop | Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="dotnet-stop" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:site_name" content="dotnet-stop" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="dotnet-stop" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.","headline":"dotnet-stop","name":"dotnet-stop","url":"/dotnet-stop/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/dotnet-stop/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/devlooped/dotnet-stop">View on GitHub</a>
+          
+
+          <h1 id="project_title">dotnet-stop</h1>
+          <h2 id="project_tagline">Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="-dotnet-stop"><img src="https://raw.githubusercontent.com/devlooped/dotnet-stop/main/assets/img/icon.png" alt="Icon" /> dotnet-stop</h1>
+
+<p><a href="https://www.nuget.org/packages/stop"><img src="https://img.shields.io/nuget/v/stop.svg?color=royalblue" alt="Version" /></a> <a href="https://www.nuget.org/packages/stop"><img src="https://img.shields.io/nuget/dt/stop.svg?color=green" alt="Downloads" /></a> <a href="https://github.com/devlooped/dotnet-stop/blob/main/license.txt"><img src="https://img.shields.io/github/license/devlooped/dotnet-stop.svg?color=blue" alt="License" /></a></p>
+
+<!-- #content -->
+<p>A dotnet global tool that gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</p>
+
+<h2 id="why">Why</h2>
+
+<p>PowerShell’s <code class="language-plaintext highlighter-rouge">Stop-Process</code> (and the underlying <code class="language-plaintext highlighter-rouge">TerminateProcess</code> on Windows / <code class="language-plaintext highlighter-rouge">SIGKILL</code> on Unix) kills a process immediately — the target has no opportunity to clean up. This matters for apps that rely on graceful shutdown: flushing writes to disk, completing in-flight work, disposing resources, or honouring a <code class="language-plaintext highlighter-rouge">CancellationToken</code> in a .NET <code class="language-plaintext highlighter-rouge">IHost</code>/<code class="language-plaintext highlighter-rouge">IHostedService</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">dnx stop</code> sends <strong>SIGINT</strong> instead — the same signal as pressing Ctrl+C — which lets the process shut down on its own terms. On Windows this is non-trivial to do programmatically; for console apps it requires detaching from the current console, attaching to the target process’s console group, and calling <code class="language-plaintext highlighter-rouge">GenerateConsoleCtrlEvent</code>. For GUI apps (including UWP apps like Calculator), it sends <code class="language-plaintext highlighter-rouge">WM_CLOSE</code> to the app’s windows — the same as clicking the close button. This tool handles all of that transparently, cross-platform.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnx stop <span class="o">[</span>&lt;processId&gt;] <span class="o">[</span><span class="nt">--timeout</span> &lt;milliseconds&gt;] <span class="o">[</span><span class="nt">--quiet</span><span class="o">]</span>
+</code></pre></div></div>
+
+<!-- include src/stop/help.md -->
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage: <span class="o">[</span>arguments...] <span class="o">[</span>options...] <span class="o">[</span><span class="nt">-h</span>|--help] <span class="o">[</span><span class="nt">--version</span><span class="o">]</span>
+
+Sends the SIGINT <span class="o">(</span>Ctrl+C<span class="o">)</span> signal to a process to gracefully stop it.
+
+Arguments:
+  <span class="o">[</span>0] &lt;int?&gt;    ID of the process to stop. When omitted, reads process IDs from standard input.
+
+Options:
+  <span class="nt">-t</span>, <span class="nt">--timeout</span> &lt;int?&gt;    Optional <span class="nb">timeout </span><span class="k">in </span>milliseconds to <span class="nb">wait </span><span class="k">for </span>the process to exit.
+  <span class="nt">-q</span>, <span class="nt">--quiet</span>             Do not display any output.
+  <span class="nt">-d</span>, <span class="nt">--debug</span>             Print diagnostic details about the stop operation.
+  <span class="nt">--attach</span>                Attach a .NET debugger before stopping.
+</code></pre></div></div>
+
+<!-- src/stop/help.md -->
+
+<p>If no timeout is provided, the tool will wait indefinitely for the target process to exit.
+Otherwise, the process will exit with a non-zero exit code if the target process didn’t 
+exit within the specified timeout time.</p>
+
+<h2 id="piping-from-powershell">Piping from PowerShell</h2>
+
+<p>When no process ID is given, <code class="language-plaintext highlighter-rouge">dnx stop</code> reads process IDs from standard input. This allows 
+piping directly from PowerShell’s <code class="language-plaintext highlighter-rouge">Get-Process</code>:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Stop all processes named 'foo'</span><span class="w">
+</span><span class="n">Get-Process</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">dnx</span><span class="w"> </span><span class="nx">stop</span><span class="w">
+
+</span><span class="c"># Stop multiple processes by name</span><span class="w">
+</span><span class="n">Get-Process</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">foo</span><span class="p">,</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">dnx</span><span class="w"> </span><span class="nx">stop</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You can also pipe just the IDs:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Get-Process</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">dnx</span><span class="w"> </span><span class="nx">stop</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- #content -->
+<!-- include https://github.com/devlooped/sponsors/raw/main/footer.md -->
+<h1 id="sponsors">Sponsors</h1>
+
+<!-- sponsors.md -->
+<p><a href="https://github.com/clarius"><img src="https://avatars.githubusercontent.com/u/71888636?v=4&amp;s=39" alt="Clarius Org" title="Clarius Org" /></a>
+<a href="https://github.com/MFB-Technologies-Inc"><img src="https://avatars.githubusercontent.com/u/87181630?v=4&amp;s=39" alt="MFB Technologies, Inc." title="MFB Technologies, Inc." /></a>
+<a href="https://github.com/sandrock"><img src="https://avatars.githubusercontent.com/u/321868?u=99e50a714276c43ae820632f1da88cb71632ec97&amp;v=4&amp;s=39" alt="SandRock" title="SandRock" /></a>
+<a href="https://github.com/drivenet"><img src="https://avatars.githubusercontent.com/u/15047123?v=4&amp;s=39" alt="DRIVE.NET, Inc." title="DRIVE.NET, Inc." /></a>
+<a href="https://github.com/Keflon"><img src="https://avatars.githubusercontent.com/u/16598898?u=64416b80caf7092a885f60bb31612270bffc9598&amp;v=4&amp;s=39" alt="Keith Pickford" title="Keith Pickford" /></a>
+<a href="https://github.com/tbolon"><img src="https://avatars.githubusercontent.com/u/127185?u=7f50babfc888675e37feb80851a4e9708f573386&amp;v=4&amp;s=39" alt="Thomas Bolon" title="Thomas Bolon" /></a>
+<a href="https://github.com/kfrancis"><img src="https://avatars.githubusercontent.com/u/67574?u=3991fb983e1c399edf39aebc00a9f9cd425703bd&amp;v=4&amp;s=39" alt="Kori Francis" title="Kori Francis" /></a>
+<a href="https://github.com/rbnswartz"><img src="https://avatars.githubusercontent.com/u/724704?u=2076fe336f9f6ad678009f1595cbea434b0c5a41&amp;v=4&amp;s=39" alt="Reuben Swartz" title="Reuben Swartz" /></a>
+<a href="https://github.com/jfoshee"><img src="https://avatars.githubusercontent.com/u/480334?v=4&amp;s=39" alt="Jacob Foshee" title="Jacob Foshee" /></a>
+<a href="https://github.com/eajhnsn1"><img src="https://avatars.githubusercontent.com/u/33566379?u=bf62e2b46435a267fa246a64537870fd2449410f&amp;v=4&amp;s=39" alt="" title="&quot;)](https://github.com/Mrxx99)
+[![Eric Johnson](https://avatars.githubusercontent.com/u/26369281?u=41b560c2bc493149b32d384b960e0948c78767ab&amp;v=4&amp;s=39 &quot;Eric Johnson" /></a>
+<a href="https://github.com/Jonathan-Hickey"><img src="https://avatars.githubusercontent.com/u/5510103?u=98dcfbef3f32de629d30f1f418a095bf09e14891&amp;v=4&amp;s=39" alt="Jonathan " title="Jonathan " /></a>
+<a href="https://github.com/KenBonny"><img src="https://avatars.githubusercontent.com/u/6417376?u=569af445b6f387917029ffb5129e9cf9f6f68421&amp;v=4&amp;s=39" alt="Ken Bonny" title="Ken Bonny" /></a>
+<a href="https://github.com/SimonCropp"><img src="https://avatars.githubusercontent.com/u/122666?v=4&amp;s=39" alt="Simon Cropp" title="Simon Cropp" /></a>
+<a href="https://github.com/agileworks-eu"><img src="https://avatars.githubusercontent.com/u/5989304?v=4&amp;s=39" alt="agileworks-eu" title="agileworks-eu" /></a>
+<a href="https://github.com/arsdragonfly"><img src="https://avatars.githubusercontent.com/u/4067473?v=4&amp;s=39" alt="Zheyu Shen" title="Zheyu Shen" /></a>
+<a href="https://github.com/vezel-dev"><img src="https://avatars.githubusercontent.com/u/87844133?v=4&amp;s=39" alt="Vezel" title="Vezel" /></a>
+<a href="https://github.com/ChilliCream"><img src="https://avatars.githubusercontent.com/u/16239022?v=4&amp;s=39" alt="ChilliCream" title="ChilliCream" /></a>
+<a href="https://github.com/4OTC"><img src="https://avatars.githubusercontent.com/u/68428092?v=4&amp;s=39" alt="4OTC" title="4OTC" /></a>
+<a href="https://github.com/DominicSchell"><img src="https://avatars.githubusercontent.com/u/66068846?u=0a5c5e2e7d90f15ea657bc660f175605935c5bea&amp;v=4&amp;s=39" alt="domischell" title="domischell" /></a>
+<a href="https://github.com/adalon"><img src="https://avatars.githubusercontent.com/u/2027083?u=129cf516d99f5cb2fd0f4a0787a069f3446b7522&amp;v=4&amp;s=39" alt="Adrian Alonso" title="Adrian Alonso" /></a>
+<a href="https://github.com/torutek"><img src="https://avatars.githubusercontent.com/u/33917059?v=4&amp;s=39" alt="torutek" title="torutek" /></a>
+<a href="https://github.com/mccaffers"><img src="https://avatars.githubusercontent.com/u/16667079?u=c0daa64bb5c1b572130e05ae2b6f609ecc912d4d&amp;v=4&amp;s=39" alt="Ryan McCaffery" title="Ryan McCaffery" /></a>
+<a href="https://github.com/SeikaLogiciel"><img src="https://avatars.githubusercontent.com/u/2564602?v=4&amp;s=39" alt="Seika Logiciel" title="Seika Logiciel" /></a>
+<a href="https://github.com/wizardness"><img src="https://avatars.githubusercontent.com/devlooped-user?s=39" alt="Andrew Grant" title="Andrew Grant" /></a>
+<a href="https://github.com/eska-gmbh"><img src="https://avatars.githubusercontent.com/devlooped-team?s=39" alt="eska-gmbh" title="eska-gmbh" /></a>
+<a href="https://github.com/geodata-no"><img src="https://avatars.githubusercontent.com/u/5946299?v=4&amp;s=39" alt="Geodata AS" title="Geodata AS" /></a></p>
+
+<!-- sponsors.md -->
+<p><a href="https://github.com/sponsors/devlooped"><img src="https://avatars.githubusercontent.com/devlooped-sponsor?s=118" alt="Sponsor this project" title="Sponsor this project" /></a></p>
+
+<p><a href="https://github.com/sponsors">Learn more about GitHub Sponsors</a></p>
+
+<!-- https://github.com/devlooped/sponsors/raw/main/footer.md -->
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">dotnet-stop maintained by <a href="https://github.com/devlooped">devlooped</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

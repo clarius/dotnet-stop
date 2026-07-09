@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/dotnet-stop/assets/css/style.css?v=77f3bd7c9a1bfe04a62c47e0dd529af847369263">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Changelog | dotnet-stop</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Changelog" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:description" content="Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way." />
+<meta property="og:site_name" content="dotnet-stop" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Changelog" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.","headline":"Changelog","url":"/dotnet-stop/changelog.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/dotnet-stop/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/devlooped/dotnet-stop">View on GitHub</a>
+          
+
+          <h1 id="project_title">dotnet-stop</h1>
+          <h2 id="project_tagline">Gracefully stops processes by sending them SIGINT (Ctrl+C) in a cross platform way.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="changelog">Changelog</h1>
+
+<h2 id="v210-2026-06-15"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.1.0">v2.1.0</a> (2026-06-15)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.1.0-rc...v2.1.0">Full Changelog</a></p>
+
+<p>:twisted_rightwards_arrows: Merged:</p>
+
+<ul>
+  <li>Fix Unix graceful shutdown for WSL process groups <a href="https://github.com/devlooped/dotnet-stop/pull/50">#50</a> (@kzu)</li>
+</ul>
+
+<h2 id="v210-rc-2026-06-15"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.1.0-rc">v2.1.0-rc</a> (2026-06-15)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.1.0-beta...v2.1.0-rc">Full Changelog</a></p>
+
+<p>:twisted_rightwards_arrows: Merged:</p>
+
+<ul>
+  <li>Fix RID tool packages by bundling stopr only in stop.any <a href="https://github.com/devlooped/dotnet-stop/pull/49">#49</a> (@kzu)</li>
+</ul>
+
+<h2 id="v210-beta-2026-06-15"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.1.0-beta">v2.1.0-beta</a> (2026-06-15)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.0.1...v2.1.0-beta">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Bundle stopr in CI any packages and fix Windows console shutdown detection <a href="https://github.com/devlooped/dotnet-stop/pull/48">#48</a> (@kzu)</li>
+  <li>Fix ConPTY TUI shutdown and split –debug from debugger attach. <a href="https://github.com/devlooped/dotnet-stop/pull/45">#45</a> (@kzu)</li>
+  <li>Add stopr helper to fix Windows multi-PID stopping. <a href="https://github.com/devlooped/dotnet-stop/pull/44">#44</a> (@kzu)</li>
+  <li>Add Windows GUI graceful shutdown via WM_CLOSE. <a href="https://github.com/devlooped/dotnet-stop/pull/43">#43</a> (@kzu)</li>
+</ul>
+
+<h2 id="v201-2026-05-15"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.0.1">v2.0.1</a> (2026-05-15)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.0.1-beta...v2.0.1">Full Changelog</a></p>
+
+<h2 id="v201-beta-2026-05-15"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.0.1-beta">v2.0.1-beta</a> (2026-05-15)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.0.0...v2.0.1-beta">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Add support for more RIDs and simplify packaging logic <a href="https://github.com/devlooped/dotnet-stop/pull/36">#36</a> (@kzu)</li>
+</ul>
+
+<p>:twisted_rightwards_arrows: Merged:</p>
+
+<ul>
+  <li>Strip symbols when publishing AOT <a href="https://github.com/devlooped/dotnet-stop/pull/35">#35</a> (@kzu)</li>
+</ul>
+
+<h2 id="v200-2026-05-05"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.0.0">v2.0.0</a> (2026-05-05)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v2.0.0-alpha...v2.0.0">Full Changelog</a></p>
+
+<h2 id="v200-alpha-2026-05-05"><a href="https://github.com/devlooped/dotnet-stop/tree/v2.0.0-alpha">v2.0.0-alpha</a> (2026-05-05)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v1.1.2...v2.0.0-alpha">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Add hybrid AOT tool publishing <a href="https://github.com/devlooped/dotnet-stop/pull/32">#32</a> (@kzu)</li>
+  <li>Support piping process IDs via standard input <a href="https://github.com/devlooped/dotnet-stop/pull/27">#27</a> (@kzu)</li>
+</ul>
+
+<p>:twisted_rightwards_arrows: Merged:</p>
+
+<ul>
+  <li>Add Why section to readme explaining SIGKILL vs SIGINT <a href="https://github.com/devlooped/dotnet-stop/pull/30">#30</a> (@kzu)</li>
+</ul>
+
+<h2 id="v112-2025-12-31"><a href="https://github.com/devlooped/dotnet-stop/tree/v1.1.2">v1.1.2</a> (2025-12-31)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v1.1.1...v1.1.2">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Drastically simplify CLI by using ConsoleAppFramework <a href="https://github.com/devlooped/dotnet-stop/pull/18">#18</a> (@kzu)</li>
+</ul>
+
+<h2 id="v111-2025-12-31"><a href="https://github.com/devlooped/dotnet-stop/tree/v1.1.1">v1.1.1</a> (2025-12-31)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v1.1.0...v1.1.1">Full Changelog</a></p>
+
+<h2 id="v110-2025-12-31"><a href="https://github.com/devlooped/dotnet-stop/tree/v1.1.0">v1.1.0</a> (2025-12-31)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v1.0.5...v1.1.0">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Allow running on whatever latest version users have. <a href="https://github.com/devlooped/dotnet-stop/pull/15">#15</a> (@kzu)</li>
+  <li>Rename to stop for easier usage with dnx stop <a href="https://github.com/devlooped/dotnet-stop/pull/13">#13</a> (@kzu)</li>
+</ul>
+
+<h2 id="v105-2021-07-21"><a href="https://github.com/devlooped/dotnet-stop/tree/v1.0.5">v1.0.5</a> (2021-07-21)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v1.0.0...v1.0.5">Full Changelog</a></p>
+
+<p>:sparkles: Implemented enhancements:</p>
+
+<ul>
+  <li>Add option to silence output from tool <a href="https://github.com/devlooped/dotnet-stop/issues/2">#2</a></li>
+</ul>
+
+<h2 id="v100-2021-07-20"><a href="https://github.com/devlooped/dotnet-stop/tree/v1.0.0">v1.0.0</a> (2021-07-20)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/v0.1.0...v1.0.0">Full Changelog</a></p>
+
+<h2 id="v010-2021-07-20"><a href="https://github.com/devlooped/dotnet-stop/tree/v0.1.0">v0.1.0</a> (2021-07-20)</h2>
+
+<p><a href="https://github.com/devlooped/dotnet-stop/compare/76f763e690078a4ecd80fd482a7636fae3d68c36...v0.1.0">Full Changelog</a></p>
+
+<p>* <em>This Changelog was automatically generated by <a href="https://github.com/github-changelog-generator/github-changelog-generator">github_changelog_generator</a></em></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">dotnet-stop maintained by <a href="https://github.com/devlooped">devlooped</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
